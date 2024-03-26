@@ -157,31 +157,39 @@ def send_to_blynk():
     blynk.virtual_write(2, spo2)
 
 # Network and Server Connection Initialization
-clear()
-printlines("   Connecting\n         WIFI\n            ...")
-do_connect()
-led.on()
-clear()
-printlines("         WIFI\n   Connected\n            ...")
-sleep(1)
-clear()
-printlines("   Connecting\n       Server\n            ...")
-blynk = BlynkLib.Blynk(BLYNK_AUTH)
-clear()
-printlines("       Server\n   Connected\n            ...")
-clear()
-
-# Main Loop
-while True:
-    led.off()
-    spo2, heartrate = read_max30100()
-    weight, level = ivbag()
-    print(f"SpO2: {spo2}%\tHeartrate: {heartrate}bpm\tIV Bag: {weight}gm/{level}%")
-    printlines(f"Heartrate: {heartrate}{" "*(4-len(heartrate))}\nSpO2: {spo2}{" "*(5-len(spo2))}\nIV Bag: {level}%{" "*(4-len(level))}")
-    try:
-        blynk.run()
-        send_to_blynk()
-    except:
-        pass
+def main():
+    clear()
+    printlines("   Connecting\n         WIFI\n            ...")
+    do_connect()
     led.on()
+    clear()
+    printlines("         WIFI\n   Connected\n            ...")
+    sleep(1)
+    clear()
+    printlines("   Connecting\n       Server\n            ...")
+    clear()
 
+    try:
+        blynk = BlynkLib.Blynk(BLYNK_AUTH)
+    except:
+        printlines("       Server\n          Not\n   Responding")
+        return
+        
+    printlines("       Server\n   Connected\n            ...")
+    clear()
+
+    # Main Loop
+    while True:
+        led.off()
+        spo2, heartrate = read_max30100()
+        weight, level = ivbag()
+        print(f"SpO2: {spo2}%\tHeartrate: {heartrate}bpm\t\tIV Bag: {weight}gm/{level}%")
+        printlines(f"Heartrate: {heartrate}{" "*(4-len(heartrate))}\nSpO2: {spo2}{" "*(5-len(spo2))}\nIV Bag: {level}%{" "*(4-len(level))}")
+        try:
+            blynk.run()
+            send_to_blynk()
+        except:
+            pass
+        led.on()
+
+main()
