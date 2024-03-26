@@ -8,11 +8,11 @@ import sh1106
 import BlynkLib
 
 # WiFi credentials
-ssid = "your_ssid"
-key = "your_password"
+ssid = "Aman197"
+key = "ushaaman"
 
 # Blynk settings
-BLYNK_AUTH = 'your_blynk_auth_token'
+BLYNK_AUTH = '2Z1G4_RNkweqHINWDcFMBoN_6ZDozadY'
 
 # Global variables for sensor readings
 heartrate = "0"
@@ -157,39 +157,31 @@ def send_to_blynk():
     blynk.virtual_write(2, spo2)
 
 # Network and Server Connection Initialization
-def main():
-    clear()
-    printlines("   Connecting\n         WIFI\n            ...")
-    do_connect()
-    led.on()
-    clear()
-    printlines("         WIFI\n   Connected\n            ...")
-    sleep(1)
-    clear()
-    printlines("   Connecting\n       Server\n            ...")
-    clear()
+clear()
+printlines("   Connecting\n         WIFI\n            ...")
+do_connect()
+led.on()
+clear()
+printlines("         WIFI\n   Connected\n            ...")
+sleep(1)
+clear()
+printlines("   Connecting\n       Server\n            ...")
+blynk = BlynkLib.Blynk(BLYNK_AUTH)
+clear()
+printlines("       Server\n   Connected\n            ...")
+clear()
 
+# Main Loop
+while True:
+    led.off()
+    spo2, heartrate = read_max30100()
+    weight, level = ivbag()
+    print(f"SpO2: {spo2}%\tHeartrate: {heartrate}bpm\t\tIV Bag: {weight}gm/{level}%")
+    printlines(f"Heartrate: {heartrate}{" "*(4-len(heartrate))}\nSpO2: {spo2}{" "*(5-len(spo2))}\nIV Bag: {level}%{" "*(4-len(level))}")
     try:
-        blynk = BlynkLib.Blynk(BLYNK_AUTH)
+        blynk.run()
+        send_to_blynk()
     except:
-        printlines("       Server\n          Not\n   Responding")
-        return
-        
-    printlines("       Server\n   Connected\n            ...")
-    clear()
+        pass
+    led.on()
 
-    # Main Loop
-    while True:
-        led.off()
-        spo2, heartrate = read_max30100()
-        weight, level = ivbag()
-        print(f"SpO2: {spo2}%\tHeartrate: {heartrate}bpm\t\tIV Bag: {weight}gm/{level}%")
-        printlines(f"Heartrate: {heartrate}{" "*(4-len(heartrate))}\nSpO2: {spo2}{" "*(5-len(spo2))}\nIV Bag: {level}%{" "*(4-len(level))}")
-        try:
-            blynk.run()
-            send_to_blynk()
-        except:
-            pass
-        led.on()
-
-main()
