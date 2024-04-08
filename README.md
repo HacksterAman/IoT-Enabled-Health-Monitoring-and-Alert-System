@@ -11,6 +11,7 @@
   - [Blynk Dashboard Setup](#blynk-dashboard-setup)
   - [Project Deployment](#project-deployment)
 - [Usage](#usage)
+- [License](#license)
 
 ## Introduction
 The Health Monitoring and Alert System is an IoT solution designed for continuous vital signs monitoring and real-time alerts in healthcare settings. It incorporates sensors like the MAX30100 and load cell to measure parameters such as heart rate, blood oxygen saturation (SpO2), weight (for IV bag monitoring), and utilizes a display, buzzer, and button for user interaction. Despite the critical need, dedicated IV bag monitoring solutions are lacking, posing risks to patient safety.
@@ -65,3 +66,7 @@ The Health Monitoring and Alert System is an IoT solution designed for continuou
 - Ensure proper deployment and connectivity of sensor nodes within the network.
 - Access the Blynk web or app interface to monitor real-time data and customize alert thresholds.
 - Respond promptly to notifications received through the Blynk app, and take appropriate action as necessary.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
