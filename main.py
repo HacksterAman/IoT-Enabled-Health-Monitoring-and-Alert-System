@@ -8,11 +8,11 @@ import sh1106
 import BlynkLib
 
 # WiFi credentials
-ssid = "Aman197"
-key = "ushaaman"
+ssid = "ID"
+key = "PASSWORD"
 
 # Blynk settings
-BLYNK_AUTH = '2Z1G4_RNkweqHINWDcFMBoN_6ZDozadY'
+BLYNK_AUTH = 'AUTHENTICATION TOKEN'
 
 # Global variables for sensor readings
 heartrate = "0"
