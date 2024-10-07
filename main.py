@@ -1,6 +1,6 @@
 import network
-import machine, onewire, max30100
-from machine import Pin, PWM, I2C
+import max30100
+from machine import Pin, I2C
 from time import sleep, sleep_us
 from writer import Writer
 import freesans20
